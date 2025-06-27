@@ -20,8 +20,8 @@
   - [Fonctionnalités](#fonctionnalités)
   - [Installation](#installation)
   - [Utilisation](#utilisation)
-    - [1. Paramètres](#1_paramètres)
-    - [2. Exemple](#2_exemple)
+    - [1. Paramètres](#1-paramètres)
+    - [2. Exemple](#2-exemple)
   - [Structure du projet](#structure-du-projet)
   - [Contribution](#contribution)
 
