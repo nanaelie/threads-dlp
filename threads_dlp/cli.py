@@ -2,9 +2,9 @@ import argparse
 import os
 import sys
 
-from downloader import downloader
-from extractor import extractor
-from .__version__ import __version__
+from threads_dlp.downloader import downloader
+from threads_dlp.extractor import extractor
+from threads_dlp.__version__ import __version__
 
 def main():
     parser = argparse.ArgumentParser(
