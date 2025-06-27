@@ -32,7 +32,7 @@ classifiers = [
 "Source" = "https://github.com/nanaelie/threads-dlp"
 
 [tool.setuptools.packages.find]
-where = ["threads_dlp"]
+where = ["."]
 
 [project.scripts]
 threads-dlp = "threads_dlp.cli:main"
