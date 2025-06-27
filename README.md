@@ -8,23 +8,22 @@
   </a>
 </p>
 
-<p align="center">
-    <h1>threads-dlp</h1><br />
-    <p><h2>threads-dlp</h2> est un outil en ligne de commande qui permet de télécharger des vidéos publiques depuis Threads à partir de leur URL.</p><br />
-    <p>Développé en Python 3.11.2, il utilise Selenium pour l'extraction du lien vidéo, dottify pour simplifier l'accès aux données extraites, et tqdm pour afficher une barre de progression lors du téléchargement.</p><br />
-    <p>N’hésite pas à laisser une ⭐ sur <a href="https://github.com/nanaelie/threads-dlp">GitHub</a>, ça aide énormément !</p>
-</p>
-<br />
+<h1 align="center"><a href="#">threads-dlp</a></h1>
+
+<p align="center"><i>threads-dlp</i> est un outil en ligne de commande qui permet de télécharger des vidéos<br />publiques depuis Threads à partir de leur URL.</p>
+<p align="center">Développé en Python 3.11.2, il utilise <code>Selenium</code> pour l'extraction du lien vidéo, <code>dottify</code> pour simplifier<br />l'accès aux données extraites, et <code>tqdm</code> pour afficher une barre de progression lors du téléchargement.</p>
+<p align="center">N’hésite pas à laisser une ⭐ sur <a href="https://github.com/nanaelie/threads-dlp">GitHub</a>, ça aide énormément !</p>
+
 ## Sommaire
 - [threads-dlp](#threads-dlp)
-    - [Sommaire](#sommaire)
-    - [Fonctionnalités](#fonctionnalités)
-    - [Installation](#installation)
-        - [1. Cloner le dépôt](#1._cloner_le_dépôt)
-        - [2. Installation des dépendances](#2._installation_des_dépendances)
-        - [3. Installation de l’outil](#3._installation_de_l’outil)
-        - [4. Utilisation](#4._utilisation)
-        - [5. Paramètres](#5._paramètres)
+  - [Sommaire](#sommaire)
+  - [Fonctionnalités](#fonctionnalités)
+  - [Installation](#installation)
+  - [Utilisation](#utilisation)
+    - [1. Paramètres](#1_paramètres)
+    - [2. Exemple](#2_exemple)
+  - [Structure du projet](#structure-du-projet)
+  - [Contribution](#contribution)
 
 ## Fonctionnalités
 
@@ -36,30 +35,11 @@
 
 ## Installation
 
-### 1. Cloner le dépôt
-
 ```bash
-git clone https://github.com/nanaelie/threads-dlp.git
-cd threads-dlp
+pip install threads-dlp
 ```
 
-### 2. Installation des dépendances
-
-```bash
-pip install -r requirements.txt
-```
-
-> Le module `tqdm` est utilisé pour la barre de progression.
-
-### 3. Installation de l’outil
-
-```bash
-pip install .
-```
-
-> Cela installe toutes les dépendances et rend la commande `threads-dlp` disponible globalement (dans l’environnement virtuel).
-
-### 4. Utilisation
+## Utilisation
 
 Une fois installé, exécute simplement :
 
@@ -67,7 +47,7 @@ Une fois installé, exécute simplement :
 threads-dlp --url <lien_threads> -to <chemin_de_sortie>
 ```
 
-### 5. Paramètres
+### 1. Paramètres
 
 | Option                | Description                                                       |
 | --------------------- | ----------------------------------------------------------------- |
@@ -75,7 +55,7 @@ threads-dlp --url <lien_threads> -to <chemin_de_sortie>
 | `-to` / `--output`    | Dossier de sortie pour enregistrer la vidéo (défaut : `./`) |
 | `-v` / `--version`    | Affiche la version de l’outil                                     |
 
-#### Exemple
+### 2. Exemple
 
 ```bash
 threads-dlp --url https://www.threads.net/t/Cq8kz123Xy -to ./mes_videos
@@ -107,4 +87,3 @@ Les contributions sont les bienvenues !
 Si tu souhaites corriger un bug, améliorer une fonctionnalité ou proposer une idée, merci de consulter le fichier [CONTRIBUTING.md](CONTRIBUTING.md) pour connaître les bonnes pratiques à suivre.
 
 Même les petites améliorations comptent.
-
