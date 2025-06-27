@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "threads-dlp"
+version = "1.0.0"
+description = "Téléchargeur de vidéos Threads (Meta) en ligne de commande"
+readme = "README.md"
+requires-python = ">=3.7"
+license = { text = "Apache-2.0" }
+authors = [
+  { name = "naedev", email = "nae.devp@gmail.com" }
+]
+homepage = "https://github.com/nanaelie/threads-dlp"
+keywords = ["threads", "download", "video", "cli", "python"]
+dependencies = [
+  "requests",
+  "selenium",
+  "tqdm",
+  "dottify>=1.1.1"
+]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+  "Environment :: Console",
+  "Topic :: Multimedia :: Video",
+  "Intended Audience :: Developers"
+]
+
+[project.urls]
+"Source" = "https://github.com/nanaelie/threads-dlp"
+
+[tool.setuptools.packages.find]
+where = ["threads_dlp"]
+
+[project.scripts]
+threads-dlp = "threads_dlp.cli:main"
+
