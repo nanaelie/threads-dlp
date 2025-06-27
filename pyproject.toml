@@ -12,7 +12,7 @@ license = { text = "Apache-2.0" }
 authors = [
   { name = "naedev", email = "nae.devp@gmail.com" }
 ]
-keywords = ["threads", "download", "video", "cli", "python"]
+keywords = ["threads", "pypi", "utils", "utility", "download", "video", "cli", "python", "nana", "elie", "nae", "naedev", "naedevp", "nae.dev", "nae.devp"]
 dependencies = [
   "requests",
   "selenium",
