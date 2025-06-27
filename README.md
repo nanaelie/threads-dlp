@@ -1,7 +1,7 @@
 <br /><br /><br /><br />
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.0.0-blue.svg" />
+  <img src="https://img.shields.io/badge/version-1.0.1-blue.svg" />
   <img src="https://img.shields.io/badge/python-3.11-blue.svg" />
   <a href="https://github.com/nanaelie">
     <img src="https://img.shields.io/badge/Made%20with-%E2%9D%A4%EF%B8%8F%20by%20nanaelie-ff69b4.svg" />
