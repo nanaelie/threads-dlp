@@ -8,24 +8,23 @@
   </a>
 </p>
 
-# threads-dlp
-
-**threads-dlp** est un outil en ligne de commande qui permet de télécharger des vidéos publiques depuis Threads à partir de leur URL.
-
-Développé en Python 3.11.2, il utilise Selenium pour l'extraction du lien vidéo, dottify pour simplifier l'accès aux données extraites, et tqdm pour afficher une barre de progression lors du téléchargement.
-
-N’hésite pas à laisser une ⭐ sur [GitHub](https://github.com/nanaelie/threads-dlp), ça aide énormément !
-
+<p align="center">
+    <h1>threads-dlp</h1><br />
+    <p><h2>threads-dlp</h2> est un outil en ligne de commande qui permet de télécharger des vidéos publiques depuis Threads à partir de leur URL.</p><br />
+    <p>Développé en Python 3.11.2, il utilise Selenium pour l'extraction du lien vidéo, dottify pour simplifier l'accès aux données extraites, et tqdm pour afficher une barre de progression lors du téléchargement.</p><br />
+    <p>N’hésite pas à laisser une ⭐ sur <a href="https://github.com/nanaelie/threads-dlp">GitHub</a>, ça aide énormément !</p>
+</p>
+<br />
 ## Sommaire
-- [threads-dlp](#)
+- [threads-dlp](#threads-dlp)
     - [Sommaire](#sommaire)
     - [Fonctionnalités](#fonctionnalités)
     - [Installation](#installation)
-        - [1. Cloner le dépôt](#1._loner_le_dépôt)
-        - [2. Installation des dépendances](#3._installation_des_dépendances)
-        - [3. Installation de l’outil](#4._installation_de_l’outil)
-        - [4. Utilisation](#5._utilisation)
-        - [5. Paramètres](#6._paramètres)
+        - [1. Cloner le dépôt](#1._cloner_le_dépôt)
+        - [2. Installation des dépendances](#2._installation_des_dépendances)
+        - [3. Installation de l’outil](#3._installation_de_l’outil)
+        - [4. Utilisation](#4._utilisation)
+        - [5. Paramètres](#5._paramètres)
 
 ## Fonctionnalités
 
@@ -73,7 +72,7 @@ threads-dlp --url <lien_threads> -to <chemin_de_sortie>
 | Option                | Description                                                       |
 | --------------------- | ----------------------------------------------------------------- |
 | `--url` (obligatoire) | URL de la vidéo Threads                                           |
-| `-to` / `--output`    | Dossier de sortie pour enregistrer la vidéo (défaut : `./videos`) |
+| `-to` / `--output`    | Dossier de sortie pour enregistrer la vidéo (défaut : `./`) |
 | `-v` / `--version`    | Affiche la version de l’outil                                     |
 
 #### Exemple
