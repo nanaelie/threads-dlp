@@ -12,7 +12,7 @@
 
 **threads-dlp** est un outil en ligne de commande qui permet de télécharger des vidéos publiques depuis Threads à partir de leur URL.
 
-Développé en Python 3.11.2, il utilise Selenium pour l'extraction du lien vidéo et `tqdm` pour afficher une barre de progression lors du téléchargement.
+Développé en Python 3.11.2, il utilise Selenium pour l'extraction du lien vidéo, dottify pour simplifier l'accès aux données extraites, et tqdm pour afficher une barre de progression lors du téléchargement.
 
 N’hésite pas à laisser une ⭐ sur [GitHub](https://github.com/nanaelie/threads-dlp), ça aide énormément !
 
@@ -22,11 +22,10 @@ N’hésite pas à laisser une ⭐ sur [GitHub](https://github.com/nanaelie/thre
     - [Fonctionnalités](#fonctionnalités)
     - [Installation](#installation)
         - [1. Cloner le dépôt](#1._loner_le_dépôt)
-        - [2. Créer un environnement virtuel_(recommandé)](#2._créer_un_environnement_virtuel_(recommandé))
-        - [3. Installation des dépendances](#3._installation_des_dépendances)
-        - [4. Installation de l’outil](#4._installation_de_l’outil)
-        - [5. Utilisation](#5._utilisation)
-        - [6. Paramètres](#6._paramètres)
+        - [2. Installation des dépendances](#3._installation_des_dépendances)
+        - [3. Installation de l’outil](#4._installation_de_l’outil)
+        - [4. Utilisation](#5._utilisation)
+        - [5. Paramètres](#6._paramètres)
 
 ## Fonctionnalités
 
@@ -45,23 +44,7 @@ git clone https://github.com/nanaelie/threads-dlp.git
 cd threads-dlp
 ```
 
-### 2. Créer un environnement virtuel (recommandé)
-
-Développement testé avec **Python 3.11.2**.  
-Il est fortement conseillé d’utiliser un **environnement virtuel**.
-
-```bash
-# Création
-python3.11 -m venv .venv
-
-# Activation (Linux/macOS)
-source .venv/bin/activate
-
-# Activation (Windows)
-.venv\Scripts\activate
-```
-
-### 3. Installation des dépendances
+### 2. Installation des dépendances
 
 ```bash
 pip install -r requirements.txt
@@ -69,7 +52,7 @@ pip install -r requirements.txt
 
 > Le module `tqdm` est utilisé pour la barre de progression.
 
-### 4. Installation de l’outil
+### 3. Installation de l’outil
 
 ```bash
 pip install .
@@ -77,7 +60,7 @@ pip install .
 
 > Cela installe toutes les dépendances et rend la commande `threads-dlp` disponible globalement (dans l’environnement virtuel).
 
-### 5. Utilisation
+### 4. Utilisation
 
 Une fois installé, exécute simplement :
 
@@ -85,7 +68,7 @@ Une fois installé, exécute simplement :
 threads-dlp --url <lien_threads> -to <chemin_de_sortie>
 ```
 
-### 6. Paramètres
+### 5. Paramètres
 
 | Option                | Description                                                       |
 | --------------------- | ----------------------------------------------------------------- |
@@ -103,19 +86,20 @@ threads-dlp --url https://www.threads.net/t/Cq8kz123Xy -to ./mes_videos
 
 ```
 threads-dlp/
-├── LICENSE             # Licence Apache 2.0 pour l’utilisation et la distribution du projet
+├── CONTRIBUTING.md     # Guide pour contribuer au projet
+├── LICENSE             # Licence Apache 2.0 pour l’utilisation et la distribution
+├── pyproject.toml      # Configuration du projet (PEP 621) avec dépendances, version, etc.
 ├── README.md           # Documentation principale du projet
-├── requirements.txt    # Liste des dépendances Python à installer
-├── setup.py            # Script d'installation du paquet (`pip install .`)
-├── CONTRIBUTING.md     # Guide pour contribuer au projet 
-└── threads-dlp         # Dossier principal contenant le code source
-    ├── downloader.py   # Télécharge une vidéo à partir de son lien direct avec barre de progression
-    ├── extractor.py    # Extrait le lien source de la vidéo Threads à partir d’une URL
-    ├── make_out_path.py# Génère un nom de fichier unique basé sur l’URL Threads
-    ├── threads_dlp.py  # Script principal de la CLI (point d’entrée)
-    ├── __version__.py  # Contient la version actuelle de l’outil
-    ├── __init__.py     # Fichier d’initialisation du module Python
-    └── __pycache__/    # Dossier généré automatiquement par Python (à ignorer dans Git)
+├── requirements.txt    # Dépendances du projet (optionnel si pyproject.toml suffit)
+├── setup.py            # Ancien script d’installation (remplacé par pyproject.toml)
+└── threads_dlp/        # Dossier principal contenant le code source
+    ├── __init__.py         # Initialise le package Python
+    ├── __version__.py      # Contient la version actuelle du projet
+    ├── cli.py              # Point d’entrée de la CLI (command-line interface)
+    ├── downloader.py       # Télécharge la vidéo depuis une URL Threads, avec `tqdm`
+    ├── extractor.py        # Extrait les données Threads avec Selenium
+    ├── make_out_path.py    # Génère un nom de fichier local à partir du lien Threads
+    └── __pycache__/        # Dossier auto-généré par Python (à ignorer dans Git)
 ```
 
 ## Contribution
