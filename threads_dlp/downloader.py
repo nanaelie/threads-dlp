@@ -2,7 +2,7 @@ import requests
 from tqdm import tqdm
 from typing import Any
 from os.path import basename
-from make_out_path import out_path
+from threads_dlp.make_out_path import out_path
 
 def downloader(url: str, src: str, output: str = None) -> Any:
     path = src.split('https://instagram.foua4-1.fna.fbcdn.net')[1]
