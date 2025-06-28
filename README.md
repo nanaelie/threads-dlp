@@ -3,6 +3,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/version-1.0.2-blue.svg" />
   <img src="https://img.shields.io/badge/python-3.11-blue.svg" />
+  <a href="https://pepy.tech/projects/threads-dlp"><img src="https://static.pepy.tech/badge/threads-dlp" alt="PyPI Downloads"></a>
   <a href="https://github.com/nanaelie">
     <img src="https://img.shields.io/badge/Made%20with-%E2%9D%A4%EF%B8%8F%20by%20nanaelie-ff69b4.svg" />
   </a>
