@@ -1,4 +1,7 @@
-<br /><br /><br /><br />
+<p align="center">
+  <img src="https://drive.google.com/uc?export=view&id=11fIcrM65j3lGkGPoQdKC1e034UyYzpG8" alt="threads-dlp logo" />
+</p>
+
 
 <p align="center">
   <img src="https://img.shields.io/badge/version-1.0.2-blue.svg" />
