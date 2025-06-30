@@ -53,6 +53,30 @@ threads-dlp --url <lien_threads> -to <chemin_de_sortie>
 
 ### 1. Paramètres
 
+```md
+$ threads-dlp -h
+usage: threads-dlp [-h] --url URL
+                   [-to OUTPUT]
+                   [-v]
+
+Télécharge une vidéo Threads à
+partir de son lien
+
+options:
+  -h, --help  show this help
+              message and exit
+  --url URL   Lien vers la vidéo
+              Threads
+  -to OUTPUT, --output OUTPUT
+              Dossier où
+              enregistrer la vidéo
+              (par défaut : ./)
+  -v, --version
+              show program's
+              version number and
+              exit
+```
+
 | Option                | Description                                                       |
 | --------------------- | ----------------------------------------------------------------- |
 | `--url` (obligatoire) | URL de la vidéo Threads                                           |
