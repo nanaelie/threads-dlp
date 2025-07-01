@@ -59,22 +59,13 @@ usage: threads-dlp [-h] --url URL
                    [-to OUTPUT]
                    [-v]
 
-Télécharge une vidéo Threads à
-partir de son lien
+Télécharge une vidéo Threads à partir de son lien
 
 options:
-  -h, --help  show this help
-              message and exit
-  --url URL   Lien vers la vidéo
-              Threads
-  -to OUTPUT, --output OUTPUT
-              Dossier où
-              enregistrer la vidéo
-              (par défaut : ./)
-  -v, --version
-              show program's
-              version number and
-              exit
+  -h, --help                  show this help message and exit
+  --url URL                   Lien vers la vidéo Threads
+  -to OUTPUT, --output OUTPUT Dossier où enregistrer la vidéo (par défaut : ./)
+  -v, --version               show program's version number and exit
 ```
 
 | Option                | Description                                                       |
@@ -86,7 +77,7 @@ options:
 ### 2. Exemple
 
 ```bash
-threads-dlp --url https://www.threads.net/t/Cq8kz123Xy -to ./mes_videos
+threads-dlp --url https://www.threads.net/t/Cq8kz123Xy -to ~/Vidéos
 ```
 
 ## Structure du projet
