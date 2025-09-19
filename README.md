@@ -70,8 +70,8 @@ options:
 
 | Option                | Description                                                       |
 | --------------------- | ----------------------------------------------------------------- |
-| `--url` (obligatoire) | URL de la vidéo Threads                                           |
-| `-to` / `--output`    | Dossier de sortie pour enregistrer la vidéo (défaut : `./`) |
+| `--url`               | URL de la vidéo Threads                                           |
+| `-to` / `--output`    | Dossier de sortie pour enregistrer la vidéo (défaut : `./`)       |
 | `-v` / `--version`    | Affiche la version de l’outil                                     |
 
 ### 2. Exemple
