@@ -13,7 +13,7 @@ def get_version():
 setup(
     name='threads-dlp',
     version=get_version(),
-    author='nae.devp',
+    author='nae.dev',
     author_email='nae.devp@gmail.com',
     description="Téléchargeur de vidéos Threads (Meta) en ligne de commande",
     long_description=open('README.md', encoding='utf-8').read(),
