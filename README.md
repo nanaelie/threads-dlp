@@ -4,7 +4,7 @@
 
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.0.2-blue.svg" />
+  <img src="https://img.shields.io/badge/version-1.0.3-blue.svg" />
   <img src="https://img.shields.io/badge/python-3.11-blue.svg" />
   <a href="https://pepy.tech/projects/threads-dlp"><img src="https://static.pepy.tech/badge/threads-dlp" alt="PyPI Downloads"></a>
   <a href="https://github.com/nanaelie">
