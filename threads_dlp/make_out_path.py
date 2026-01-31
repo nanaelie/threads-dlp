@@ -19,6 +19,6 @@ def strftime():
 def out_path(url):
     uname = get_username(url)
     strtime = strftime()
-    path = '@' + uname + '-' + strtime if uname else strtime
+    path = uname + '-' + strtime if uname else strtime
     return path
 
