@@ -25,9 +25,8 @@ def downloader(url: str, src: str, output: str = None) -> Any:
     res = requests.get(src, headers=headers, stream=True)
     print(f"Statut HTTP reçu : {res.status_code}")
 
-    print(res.headers.get('Content-Type'))
-    e = res.headers.get('Content-Type').split('/')[1]
-    print(f"Type de contenu détecté : {res.headers.get('Content-Type')} - Extension choisie : {e}")
+    f, e = tuple(res.headers.get('Content-Type').split('/'))
+    print(f"Type de contenu détecté : {f} - Extension : {e}")
 
     if res.status_code == 206:
         outfile = out_path(url) + '.' + e
