@@ -15,7 +15,6 @@ def downloader(url: str, src: str, output: str = None) -> Any:
         "Sec-Ch-UA": "'Google Chrome';v='137', 'Chromium';v='137', 'Not/A)Brand';v='24",
         "Sec-Ch-UA-Mobile": "?0",
         "Sec-Ch-ua-Platform": "Linux",
-        "Sec-Fetch-Dest": "video",
         "Sec-Fetch-Mode": "no-cors",
         "Sec-Fetch-Site": "same-origin",
         "user-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
