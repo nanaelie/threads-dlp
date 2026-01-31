@@ -5,7 +5,7 @@ from os.path import basename
 from threads_dlp.make_out_path import out_path
 
 def downloader(url: str, src: str, output: str = None) -> Any:
-    path = src.split('https://instagram.foua4-1.fna.fbcdn.net')[1]
+    # path = src.split('https://instagram.foua4-1.fna.fbcdn.net')[1]
     headers = {
         "Accept": "*/*",
         "Accept-Encoding": "identity;q=1, *;q=0",
@@ -26,8 +26,9 @@ def downloader(url: str, src: str, output: str = None) -> Any:
     res = requests.get(src, headers=headers, stream=True)
     print(f"Statut HTTP reçu : {res.status_code}")
 
+    print(res.headers.get('Content-Type'))
     e = res.headers.get('Content-Type').split('/')[1]
-    print(f"Type de contenu détecté : {res.headers.get('Content-Type')} - Extension choisie : .{e}")
+    print(f"Type de contenu détecté : {res.headers.get('Content-Type')} - Extension choisie : {e}")
 
     if res.status_code == 206:
         outfile = out_path(url) + '.' + e
