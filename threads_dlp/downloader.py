@@ -5,7 +5,6 @@ from os.path import basename
 from threads_dlp.make_out_path import out_path
 
 def downloader(url: str, src: str, output: str = None) -> Any:
-    # path = src.split('https://instagram.foua4-1.fna.fbcdn.net')[1]
     headers = {
         "Accept": "*/*",
         "Accept-Encoding": "identity;q=1, *;q=0",
