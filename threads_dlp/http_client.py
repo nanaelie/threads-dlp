@@ -10,7 +10,6 @@ def create_session() -> requests.Session:
         read=2,
         status=3,
         backoff_factor=0.5,
-        backoff_max=4,
         status_forcelist=(429, 500, 502, 503, 504),
         allowed_methods=frozenset({"GET"}),
         respect_retry_after_header=False,
@@ -20,3 +19,4 @@ def create_session() -> requests.Session:
     session = requests.Session()
     session.mount("https://", adapter)
     return session
+
