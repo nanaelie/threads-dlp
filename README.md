@@ -1,5 +1,10 @@
 # threads-dlp
 
+[![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Termux](https://img.shields.io/badge/Termux-supported-1f7a5c?logo=android&logoColor=white)](https://github.com/termux/termux-app)
+[![License](https://img.shields.io/github/license/nanaelie/threads-dlp)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/nanaelie/threads-dlp?style=social)](https://github.com/nanaelie/threads-dlp)
+
 `threads-dlp` is a command-line tool for downloading videos from publicly viewable Threads posts. It runs on Linux, macOS, Windows, and Android through Termux. It uses Python and HTTP requests; Chrome, Selenium, and a Threads account are not required.
 
 ## Features
