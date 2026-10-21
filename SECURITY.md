@@ -2,17 +2,11 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
-
-| Version | Supported          |
-| ------- | ------------------ |
-| 1.0.0   | :white_check_mark: |
+| Version | Security updates |
+| --- | --- |
+| 2.0.x | Supported |
+| 1.x | Not supported |
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
-
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+Please report security vulnerabilities privately to the maintainer at nae.devp@gmail.com. Include the affected version, the impact, and steps to reproduce the issue. Do not report vulnerabilities in a public issue.

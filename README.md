@@ -1,108 +1,104 @@
-<p align="center">
-  <img src="https://drive.google.com/uc?export=view&id=11fIcrM65j3lGkGPoQdKC1e034UyYzpG8" alt="threads-dlp logo" />
-</p>
+# threads-dlp
 
+`threads-dlp` is a command-line tool for downloading videos from publicly viewable Threads posts. It runs on Linux, macOS, Windows, and Android through Termux. It uses Python and HTTP requests; Chrome, Selenium, and a Threads account are not required.
 
-<p align="center">
-  <img src="https://img.shields.io/badge/version-1.0.3-blue.svg" />
-  <img src="https://img.shields.io/badge/python-3.11-blue.svg" />
-  <a href="https://pepy.tech/projects/threads-dlp"><img src="https://static.pepy.tech/badge/threads-dlp" alt="PyPI Downloads"></a>
-  <a href="https://github.com/nanaelie">
-    <img src="https://img.shields.io/badge/Made%20with-%E2%9D%A4%EF%B8%8F%20by%20nanaelie-ff69b4.svg" />
-  </a>
-</p>
+## Features
 
-<h1 align="center"><a href="#">threads-dlp</a></h1>
+- Accepts Threads post links on `threads.com` and `threads.net`, including `/t/` and `/share/` links
+- Finds the video attached to the requested post and selects its highest-resolution progressive MP4
+- Streams downloads to disk and displays progress in an interactive terminal
+- Creates the output folder when needed and avoids overwriting existing files
+- Removes incomplete downloads when a network or disk error occurs
 
-<p align="center"><i>threads-dlp</i> est un outil en ligne de commande qui permet de télécharger des vidéos<br />publiques depuis Threads à partir de leur URL.</p>
-<p align="center">Développé en Python 3.11.2, il utilise <code>Selenium</code> pour l'extraction du lien vidéo, <code>dottify</code> pour simplifier<br />l'accès aux données extraites, et <code>tqdm</code> pour afficher une barre de progression lors du téléchargement.</p>
-<p align="center">N’hésite pas à laisser une ⭐ sur <a href="https://github.com/nanaelie/threads-dlp">GitHub</a>, ça aide énormément !</p>
+Only public posts are supported. Private, deleted, age-restricted, or otherwise unavailable posts cannot be downloaded. The tool does not log in or accept account credentials.
 
-## Sommaire
-- [threads-dlp](#threads-dlp)
-  - [Sommaire](#sommaire)
-  - [Fonctionnalités](#fonctionnalités)
-  - [Installation](#installation)
-  - [Utilisation](#utilisation)
-    - [1. Paramètres](#1-paramètres)
-    - [2. Exemple](#2-exemple)
-  - [Structure du projet](#structure-du-projet)
-  - [Contribution](#contribution)
+## Requirements
 
-## Fonctionnalités
+- Python 3.9 or newer
+- An internet connection
 
-- Extraction automatique du lien source de la vidéo
-- Téléchargement propre avec suivi en temps réel
-- Interface en ligne de commande simple
-- Téléchargement dans un dossier personnalisé
-- Compatible avec Linux, macOS et Windows
+## Install
 
-## Installation
+Install from a repository checkout:
 
 ```bash
-pip install threads-dlp
+git clone https://github.com/nanaelie/threads-dlp.git
+cd threads-dlp
+python -m pip install .
 ```
 
-## Utilisation
+## Termux on Android
 
-Une fois installé, exécute simplement :
+Install Python in Termux, create an isolated environment, and install the package:
 
 ```bash
-threads-dlp --url <lien_threads> -to <chemin_de_sortie>
+pkg update
+pkg install python git
+git clone https://github.com/nanaelie/threads-dlp.git
+cd threads-dlp
+python -m venv .venv
+. .venv/bin/activate
+python -m pip install .
 ```
 
-### 1. Paramètres
-
-```md
-$ threads-dlp -h
-usage: threads-dlp [-h] --url URL
-                   [-to OUTPUT]
-                   [-v]
-
-Télécharge une vidéo Threads à partir de son lien
-
-options:
-  -h, --help                  show this help message and exit
-  --url URL                   Lien vers la vidéo Threads
-  -to OUTPUT, --output OUTPUT Dossier où enregistrer la vidéo (par défaut : ./)
-  -v, --version               show program's version number and exit
-```
-
-| Option                | Description                                                       |
-| --------------------- | ----------------------------------------------------------------- |
-| `--url`               | URL de la vidéo Threads                                           |
-| `-to` / `--output`    | Dossier de sortie pour enregistrer la vidéo (défaut : `./`)       |
-| `-v` / `--version`    | Affiche la version de l’outil                                     |
-
-### 2. Exemple
+To save into Android shared storage, grant Termux storage access once and choose the Downloads folder:
 
 ```bash
-threads-dlp --url https://www.threads.net/t/Cq8kz123Xy -to ~/Vidéos
+termux-setup-storage
+threads-dlp --url "https://www.threads.com/@username/post/POST_ID" --output ~/storage/downloads/Threads
 ```
 
-## Structure du projet
+Termux storage access is optional. You can also save to a folder inside Termux's private files.
 
+## Usage
+
+```bash
+threads-dlp --url "https://www.threads.net/@username/post/POST_ID"
 ```
+
+Choose an output folder with `--output` or `-o`:
+
+```bash
+threads-dlp --url "https://www.threads.com/t/POST_ID" --output "./videos"
+```
+
+The saved filename uses the post ID, for example `POST_ID.mp4`. If that file already exists, the tool uses the next available name, such as `POST_ID-1.mp4`.
+
+Show the available options or installed version:
+
+```bash
+threads-dlp --help
+threads-dlp --version
+```
+
+## Troubleshooting
+
+- **No public video was found:** check that the link points to a post containing a video and that it opens without signing in.
+- **The video source returned an error:** video links can expire. Run the command again to extract a fresh link.
+- **Permission denied:** choose a folder Termux can write to. For Android shared storage, run `termux-setup-storage` and use `~/storage/downloads`.
+- **Threads changed its page:** extraction relies on data embedded in Threads' public web pages. A change to that page format can require an update to this tool.
+
+## Project layout
+
+```text
 threads-dlp/
-├── CONTRIBUTING.md     # Guide pour contribuer au projet
-├── LICENSE             # Licence Apache 2.0 pour l’utilisation et la distribution
-├── pyproject.toml      # Configuration du projet (PEP 621) avec dépendances, version, etc.
-├── README.md           # Documentation principale du projet
-├── requirements.txt    # Dépendances du projet (optionnel si pyproject.toml suffit)
-├── setup.py            # Ancien script d’installation (remplacé par pyproject.toml)
-└── threads_dlp/        # Dossier principal contenant le code source
-    ├── __init__.py         # Initialise le package Python
-    ├── __version__.py      # Contient la version actuelle du projet
-    ├── cli.py              # Point d’entrée de la CLI (command-line interface)
-    ├── downloader.py       # Télécharge la vidéo depuis une URL Threads, avec `tqdm`
-    ├── extractor.py        # Extrait les données Threads avec Selenium
-    ├── make_out_path.py    # Génère un nom de fichier local à partir du lien Threads
-    └── __pycache__/        # Dossier auto-généré par Python (à ignorer dans Git)
+├── README.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── pyproject.toml
+├── requirements.txt
+└── threads_dlp/
+    ├── __init__.py
+    ├── __version__.py
+    ├── cli.py
+    ├── downloader.py
+    ├── errors.py
+    ├── extractor.py
+    ├── http_client.py
+    ├── make_out_path.py
+    └── models.py
 ```
 
-## Contribution
+## License
 
-Les contributions sont les bienvenues !  
-Si tu souhaites corriger un bug, améliorer une fonctionnalité ou proposer une idée, merci de consulter le fichier [CONTRIBUTING.md](CONTRIBUTING.md) pour connaître les bonnes pratiques à suivre.
-
-Même les petites améliorations comptent.
+This project is licensed under the Apache License 2.0. See [LICENSE](LICENSE).

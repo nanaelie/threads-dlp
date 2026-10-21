@@ -1,52 +1,26 @@
-# Contribuer à threads-dlp
+# Contributing
 
-Merci de ton intérêt pour ce projet !  
-Voici quelques consignes simples pour contribuer efficacement à **threads-dlp**.
+Contributions are welcome. Please keep changes focused and explain the user-facing behavior they improve.
 
-## Comment contribuer ?
-
-### 1. Forker le projet
-
-Sur GitHub, clique sur **Fork** pour créer ta propre copie du dépôt.
-
-### 2. Créer une nouvelle branche
+## Development setup
 
 ```bash
-git checkout -b nom-de-ta-branche
+git clone https://github.com/nanaelie/threads-dlp.git
+cd threads-dlp
+python -m venv .venv
+. .venv/bin/activate
+python -m pip install -e .
 ```
 
-Utilise un nom de branche clair et court (ex: `fix-detection-video` ou `ajout-logs`).
+## Code style
 
-### 3. Apporter tes modifications
+- Use four spaces for indentation.
+- Keep code self-explanatory and do not add code comments.
+- Use clear English for command output and documentation.
+- Preserve support for Python 3.9 and newer.
 
-* Suis le style de code existant.
-* Commente ton code si nécessaire.
-* Ajoute des logs lisibles si utile.
+## Changes
 
-### 4. Tester avant de proposer
+Before opening a pull request, describe the behavior that changed, the platforms affected, and any manual checks performed. Do not include downloaded media, credentials, or local environment files in a commit.
 
-Teste le téléchargement d'une vidéo Threads réelle.
-Si tu ajoutes une fonctionnalité, pense à tester qu’elle ne casse pas les existantes.
-
-### 5. Commit & push
-
-```bash
-git add .
-git commit -m "Ajout de ..."
-git push origin nom-de-ta-branche
-```
-
-### 6. Créer une Pull Request (PR)
-
-* Depuis GitHub
-* Explique ce que tu as modifié
-* Sois clair et concis
-
-## Merci
-
-Même les petites contributions sont les bienvenues : corrections de fautes, suggestions de README, amélioration des logs, etc.
-
-## Licence
-
-En contribuant à ce projet, tu acceptes que ton code soit publié sous licence MIT.
-
+By submitting a contribution, you agree that it is distributed under the Apache License 2.0, consistent with the project license.

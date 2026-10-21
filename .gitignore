@@ -194,3 +194,4 @@ cython_debug/
 .cursorindexingignore.idea/*
 .idea
 *.mp4
+*.part
