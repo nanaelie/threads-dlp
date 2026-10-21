@@ -1,39 +1,40 @@
 [build-system]
-requires = ["setuptools>=42", "wheel"]
+requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "threads-dlp"
-version = "1.0.3"
-description = "CLI open-source pour télécharger des vidéos depuis Threads (Meta)"
+version = "2.0.0"
+description = "Download videos from public Threads posts"
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.9"
 license = { text = "Apache-2.0" }
 authors = [
   { name = "naedev", email = "nae.devp@gmail.com" }
 ]
-keywords = ["threads", "pypi", "utils", "utility", "download", "video", "cli", "python", "nana", "elie", "nae", "naedev", "naedevp", "nae.dev", "nae.devp"]
+keywords = ["threads", "video", "downloader", "cli", "termux"]
 dependencies = [
-  "requests",
-  "selenium",
-  "tqdm",
-  "dottify>=1.1.1"
+  "requests>=2.31.0,<3",
+  "urllib3>=1.26,<3"
 ]
 classifiers = [
   "Programming Language :: Python :: 3",
-  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3 :: Only",
   "Operating System :: OS Independent",
   "Environment :: Console",
+  "License :: OSI Approved :: Apache Software License",
   "Topic :: Multimedia :: Video",
-  "Intended Audience :: Developers"
+  "Topic :: Utilities"
 ]
 
 [project.urls]
-"Source" = "https://github.com/nanaelie/threads-dlp"
-
-[tool.setuptools.packages.find]
-where = ["."]
+Homepage = "https://github.com/nanaelie/threads-dlp"
+Repository = "https://github.com/nanaelie/threads-dlp"
+Issues = "https://github.com/nanaelie/threads-dlp/issues"
 
 [project.scripts]
 threads-dlp = "threads_dlp.cli:main"
 
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["threads_dlp*"]

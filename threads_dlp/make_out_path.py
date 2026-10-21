@@ -1,24 +1,14 @@
 import re
-import pathlib
-from datetime import datetime
+from pathlib import Path
+from typing import Optional, Union
 
-def get_username(url: str) -> str | None:
-    usernames = re.findall(r'/@([a-zA-Z._]+)/', url)
-    if usernames:
-        username = usernames[0]
-        return username
-    else:
-        return None
+from threads_dlp.errors import ThreadsDlpError
 
-def get_extension(url: str) -> str:
-    pass
 
-def strftime():
-    return datetime.now().strftime("%Y_%m_%d-%H:%M:%S")
-
-def out_path(url):
-    uname = get_username(url)
-    strtime = strftime()
-    path = uname + '-' + strtime if uname else strtime
-    return path
-
+def out_path(post_id: str, output: Optional[Union[str, Path]] = None, index: int = 0) -> Path:
+    if not re.fullmatch(r"[A-Za-z0-9_-]+", post_id):
+        raise ThreadsDlpError("The Threads post link contains an invalid post ID.")
+    directory = Path(output if output is not None else ".").expanduser()
+    directory.mkdir(parents=True, exist_ok=True)
+    suffix = f"-{index}" if index else ""
+    return directory / f"{post_id}{suffix}.mp4"

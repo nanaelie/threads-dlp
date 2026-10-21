@@ -1,4 +1,2 @@
-requests~=2.32.4
-tqdm
-selenium
-dottify>=1.1.1
+requests>=2.31.0,<3
+urllib3>=1.26,<3

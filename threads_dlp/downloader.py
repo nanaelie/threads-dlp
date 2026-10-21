@@ -1,56 +1,124 @@
+import os
+import sys
+import tempfile
+from pathlib import Path
+from typing import Optional, Union
+
 import requests
-from tqdm import tqdm
-from typing import Any
-from os.path import basename
+
+from threads_dlp.errors import ThreadsDlpError
+from threads_dlp.http_client import create_session
 from threads_dlp.make_out_path import out_path
+from threads_dlp.models import Media
 
-def downloader(url: str, src: str, output: str = None) -> Any:
-    headers = {
-        "Accept": "*/*",
-        "Accept-Encoding": "identity;q=1, *;q=0",
-        "Accept-Language": "en-US,en;q=0.9",
-        "Priority": "i",
-        "Range": "bytes=0-",
-        "Referer": f"{src}",
-        "Sec-Ch-UA": "'Google Chrome';v='137', 'Chromium';v='137', 'Not/A)Brand';v='24",
-        "Sec-Ch-UA-Mobile": "?0",
-        "Sec-Ch-ua-Platform": "Linux",
-        "Sec-Fetch-Mode": "no-cors",
-        "Sec-Fetch-Site": "same-origin",
-        "user-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
-    }
-    
-    print(f"Envoi de la requête GET vers la source avec headers personnalisés")
-    res = requests.get(src, headers=headers, stream=True)
-    print(f"Statut HTTP reçu : {res.status_code}")
+_USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
 
-    f, e = tuple(res.headers.get('Content-Type').split('/'))
-    print(f"Type de contenu détecté : {f} - Extension : {e}")
 
-    if res.status_code == 206:
-        outfile = out_path(url) + '.' + e
-        if output is None:
-            outfile_path = './' + outfile
-        else:
-            if output.endswith('/'):
-                outfile_path = output + outfile
-            else:
-                outfile_path = output + '/' + outfile
+def _format_size(value: int) -> str:
+    size = float(value)
+    for unit in ("B", "KB", "MB", "GB", "TB"):
+        if size < 1024 or unit == "TB":
+            return f"{size:.1f} {unit}"
+        size /= 1024
+    return f"{size:.1f} TB"
 
-        print(f"Enregistrement dans : {outfile_path}")
 
-        total_size = int(res.headers.get('Content-Length', 0))
-        chunk_size = 1024
-        with open(outfile_path, "wb") as output_file, tqdm(
-            total=total_size, unit='B', unit_scale=True, desc='Téléchargement', ncols=80
-        ) as progress_bar:
-            for chunk in res.iter_content(chunk_size=chunk_size):
-                if chunk:
-                    output_file.write(chunk)
-                    progress_bar.update(len(chunk))
-
-        print("Écriture du fichier terminée")
+def _show_progress(downloaded: int, total_size: Optional[int]) -> None:
+    if not sys.stderr.isatty():
+        return
+    if total_size:
+        percent = min(downloaded / total_size * 100, 100)
+        message = f"Downloaded {_format_size(downloaded)} / {_format_size(total_size)} ({percent:5.1f}%)"
     else:
-        print(f"Échec du téléchargement, code HTTP : {res.status_code}")
+        message = f"Downloaded {_format_size(downloaded)}"
+    print(f"\r{message}", end="", file=sys.stderr, flush=True)
 
 
+def downloader(media: Media, output: Optional[Union[str, Path]] = None) -> Path:
+    try:
+        target = out_path(media.post_id, output)
+    except OSError as exc:
+        raise ThreadsDlpError(f"Could not create the output folder: {exc}") from exc
+
+    reserved = False
+    temporary_path = None
+    progress_shown = False
+    session = create_session()
+    try:
+        index = 0
+        while True:
+            target = out_path(media.post_id, output, index=index)
+            try:
+                descriptor = os.open(target, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
+                os.close(descriptor)
+                reserved = True
+                break
+            except FileExistsError:
+                index += 1
+            except OSError as exc:
+                raise ThreadsDlpError(f"Could not create the output file: {exc}") from exc
+
+        headers = {
+            "Accept": "video/mp4,application/octet-stream;q=0.9,*/*;q=0.8",
+            "Accept-Encoding": "identity",
+            "Referer": media.referer,
+            "User-Agent": _USER_AGENT,
+        }
+        try:
+            response = session.get(media.url, headers=headers, stream=True, timeout=(15, 60))
+        except requests.Timeout as exc:
+            raise ThreadsDlpError("The video download timed out. Check the connection and try again.") from exc
+        except requests.RequestException as exc:
+            raise ThreadsDlpError("Could not connect to the video source. Check the connection and try again.") from exc
+
+        with response:
+            if response.status_code >= 400:
+                raise ThreadsDlpError(f"The video source returned HTTP {response.status_code}. The video link may have expired; try again.")
+            content_type = response.headers.get("Content-Type", "").split(";", 1)[0].strip().lower()
+            if content_type and not content_type.startswith("video/") and content_type not in {"application/octet-stream", "binary/octet-stream"}:
+                raise ThreadsDlpError("The video source returned a web page instead of a video. The post may be unavailable; try again.")
+            length_value = response.headers.get("Content-Length", "")
+            total_size = int(length_value) if length_value.isdigit() else None
+            descriptor, temporary_name = tempfile.mkstemp(prefix=f".{media.post_id}.", suffix=".part", dir=str(target.parent))
+            temporary_path = Path(temporary_name)
+            downloaded = 0
+            last_progress = 0
+            with os.fdopen(descriptor, "wb") as output_file:
+                try:
+                    for chunk in response.iter_content(chunk_size=64 * 1024):
+                        if not chunk:
+                            continue
+                        output_file.write(chunk)
+                        downloaded += len(chunk)
+                        if downloaded - last_progress >= 512 * 1024 or (total_size and downloaded >= total_size):
+                            _show_progress(downloaded, total_size)
+                            progress_shown = True
+                            last_progress = downloaded
+                except requests.RequestException as exc:
+                    raise ThreadsDlpError("The download was interrupted. Check the connection and try again.") from exc
+            _show_progress(downloaded, total_size)
+            progress_shown = True
+            if downloaded == 0:
+                raise ThreadsDlpError("The video source returned an empty file.")
+            if total_size is not None and downloaded != total_size:
+                raise ThreadsDlpError("The download ended before all video data arrived. Check the connection and try again.")
+        os.replace(temporary_path, target)
+        temporary_path = None
+        reserved = False
+        return target
+    except OSError as exc:
+        raise ThreadsDlpError(f"Could not save the video: {exc}") from exc
+    finally:
+        session.close()
+        if progress_shown and sys.stderr.isatty():
+            print(file=sys.stderr)
+        if temporary_path is not None:
+            try:
+                temporary_path.unlink(missing_ok=True)
+            except OSError:
+                pass
+        if reserved:
+            try:
+                target.unlink(missing_ok=True)
+            except OSError:
+                pass

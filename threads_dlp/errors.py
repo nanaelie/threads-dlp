@@ -1,0 +1,2 @@
+class ThreadsDlpError(Exception):
+    pass
